@@ -51,7 +51,7 @@ public class ProductDetailsAdapter extends ArrayAdapter<ProductDetails> {
 		viewHolder.modelTextView.setText(product.getModel());
 		viewHolder.quantityTextView.setText(product.getQuantity());
 		viewHolder.imageView.setImageResource(R.drawable.ic_launcher);
-		String url = getItem(position).getPhotoUrl();
+		String url = product.getPhotoUrl();
 		Picasso.with(getContext()).load(url).into(viewHolder.imageView);
 		return convertView;
 

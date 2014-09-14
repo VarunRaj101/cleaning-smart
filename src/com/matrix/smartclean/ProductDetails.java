@@ -67,9 +67,9 @@ public class ProductDetails {
 		long code=jsonobject.getLong("code");
 		String quantity = jsonobject.getString("quantity");
 		String variable = null;
-		JSONObject imageurl=new JSONObject(variable);
-		JSONObject image=imageurl.getJSONObject("image_url");
-		String originalimage=image.getString("original");
+//		JSONObject imageurl=new JSONObject(variable);
+//		JSONObject image=imageurl.getJSONObject("image_url");
+//		String originalimage=image.getString("original");
 		ProductDetails p = new ProductDetails(name,model,quantity,idp,code,category_id,
 				standard);
 		return p;
@@ -78,13 +78,7 @@ public class ProductDetails {
 
 	public String getPhotoUrl() {
 	
-		String	url="https://www.google.co.in/search?q=android&biw=1366&bih=641&sour" +
-				"ce=lnms&tbm=isch&sa=X&ei=G0MTVK6pD4zauQSKi4GgDg&ved=0CAcQ_AUoAg#facrc=" +
-				"_&imgdii=_&imgrc=0nwmj4mTXOQghM%253A%3B0WYSAs-afqlzVM%3Bhttp%253A%252F%252Fblog." +
-				"inner-active.com%252Fwp-content%252Fuploads%252F2013%252F08%252FAndroidWallpaper." +
-				"jpg%3Bhttp%253A%252F%252Fblog.inner-active.com%252F2013%252F08%252F" +
-				"googles-new-policies-good-for-users-great-for-android-developers-and-the-" +
-				"ecosystem%252F%3B1024%3B819";
+		String	url="http://blog.inner-active.com/wp-content/uploads/2013/08/AndroidWallpaper.jpg";
 		return url;
 	}
 
