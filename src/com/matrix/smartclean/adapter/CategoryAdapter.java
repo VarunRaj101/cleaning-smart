@@ -1,4 +1,4 @@
-package com.matrix.smartclean;
+package com.matrix.smartclean.adapter;
 
 import java.util.List;
 
@@ -7,15 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-
 import android.widget.TextView;
+
+import com.matrix.smartclean.R;
+import com.matrix.smartclean.model.Category;
 
 public class CategoryAdapter extends ArrayAdapter<Category> {
 
 	public CategoryAdapter(Context context, List<Category> objects) {
 		super(context, android.R.layout.simple_list_item_1, objects);
-		inflater = (LayoutInflater) context                             //correction git :missing coments :p
+		inflater = (LayoutInflater) context // correction git :missing coments
+											// :p
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
@@ -26,26 +28,25 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 
 		ViewHolder viewHolder;
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.main_textview_list, null);
-			
+			convertView = inflater.inflate(R.layout.main_textview_list, parent,
+					false);
+
 			viewHolder = new ViewHolder();
 			viewHolder.nameTextView = (TextView) convertView
 					.findViewById(R.id.listItemTetView);
-			
-			
+
 			convertView.setTag(viewHolder); // corection git :missing line :p
 
 		} else
 			viewHolder = (ViewHolder) convertView.getTag();
 		Category catogory = getItem(position);
 		viewHolder.nameTextView.setText(catogory.getName());
-		
+
 		return convertView;
 	}
 
 	private static class ViewHolder {
-		public TextView nameTextView;
-		;
+		public TextView nameTextView;;
 	}
 
 }

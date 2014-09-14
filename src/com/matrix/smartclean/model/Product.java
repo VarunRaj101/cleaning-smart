@@ -1,10 +1,9 @@
-package com.matrix.smartclean;
+package com.matrix.smartclean.model;
 
-import java.util.Map;
-
-import org.json.JSONObject;
 import org.json.JSONException;
-public class ProductDetails {
+import org.json.JSONObject;
+
+public class Product {
 	private String name;
 	private String model;
 	private String quantity;
@@ -12,11 +11,12 @@ public class ProductDetails {
 	private long category_id;
 	private long code;
 	private String standard;
-	//private String imageurl;
-	
+	private String imgOriginalUrl;
+	private String imgThumbUrl;
 
-	public ProductDetails(String name, String model, String quantity, long id,
-			long category_id, long code, String standard) {
+	public Product(String name, String model, String quantity, long id,
+			long category_id, long code, String standard,
+			String imgOriginalUrl, String imgThumbUrl) {
 
 		this.id = id;
 		this.category_id = category_id;
@@ -25,6 +25,8 @@ public class ProductDetails {
 		this.standard = standard;
 		this.code = code;
 		this.quantity = quantity;
+		this.imgOriginalUrl = imgOriginalUrl;
+		this.imgThumbUrl = imgThumbUrl;
 
 	}
 
@@ -40,7 +42,7 @@ public class ProductDetails {
 		return quantity;
 	}
 
-	public long getIdp() {
+	public long getId() {
 		return id;
 	}
 
@@ -56,32 +58,29 @@ public class ProductDetails {
 		return standard;
 	}
 
-	
+	public String getImgOriginalUrl() {
+		return imgOriginalUrl;
+	}
 
-	public static ProductDetails parse(JSONObject jsonobject)throws JSONException {
+	public String getImgThumbUrl() {
+		return imgThumbUrl;
+	}
+
+	public static Product parse(JSONObject jsonobject) throws JSONException {
 		long idp = jsonobject.getLong("id");
 		long category_id = jsonobject.getLong("category_id");
 		String name = jsonobject.getString("name");
 		String model = jsonobject.getString("model");
 		String standard = jsonobject.getString("standard");
-		long code=jsonobject.getLong("code");
+		long code = jsonobject.getLong("code");
 		String quantity = jsonobject.getString("quantity");
-		String variable = null;
-//		JSONObject imageurl=new JSONObject(variable);
-//		JSONObject image=imageurl.getJSONObject("image_url");
-//		String originalimage=image.getString("original");
-		ProductDetails p = new ProductDetails(name,model,quantity,idp,code,category_id,
-				standard);
+		JSONObject imageurl = jsonobject.getJSONObject("image_url");
+		String originalimage = imageurl.getString("original");
+		String thumbImage = imageurl.getString("thumb");
+		Product p = new Product(name, model, quantity, idp, code, category_id,
+				standard, originalimage, thumbImage);
 		return p;
-		
-	}
 
-	public String getPhotoUrl() {
-	
-		String	url="http://blog.inner-active.com/wp-content/uploads/2013/08/AndroidWallpaper.jpg";
-		return url;
 	}
-
-	
 
 }

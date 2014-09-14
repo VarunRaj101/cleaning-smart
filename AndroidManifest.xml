@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.matrix.smartclean.CategoryMainActivity"
+            android:name="com.matrix.smartclean.activity.CategoryMainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,10 +25,10 @@
             </intent-filter>
         </activity>
          <activity
-            android:name="com.matrix.smartclean.ProductMainActivity"
+            android:name="com.matrix.smartclean.activity.ProductsActivity"
             android:label="@string/app_name" />
          <activity
-            android:name="com.matrix.smartclean.ProductDetailsMainActivity"
+            android:name="com.matrix.smartclean.activity.ProductDetailsActivity"
             android:label="@string/app_name" />
     </application>
 

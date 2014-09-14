@@ -1,4 +1,4 @@
-package com.matrix.smartclean;
+package com.matrix.smartclean.adapter;
 
 import java.util.List;
 
@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.matrix.smartclean.R;
+import com.matrix.smartclean.model.Product;
+import com.squareup.picasso.Picasso;
 
 public class ProductAdapter extends ArrayAdapter<Product> {
 
@@ -25,17 +29,19 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
 		ViewHolder viewHolder;
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.product_textview_list, null);
+			convertView = inflater
+					.inflate(R.layout.product_textview_list, parent,false);
 			viewHolder = new ViewHolder();
-			
+
 			viewHolder.nameTextView = (TextView) convertView
 					.findViewById(R.id.tvProductName);
 			viewHolder.modelTextView = (TextView) convertView
 					.findViewById(R.id.tvProductModel);
-			
+
 			viewHolder.quantityTextView = (TextView) convertView
 					.findViewById(R.id.tvProductQuantity);
-			viewHolder.imageView=(ImageView)convertView.findViewById(R.id.imageTextviewProduct);
+			viewHolder.imageView = (ImageView) convertView
+					.findViewById(R.id.imageTextviewProduct);
 			convertView.setTag(viewHolder);
 
 		} else
@@ -44,13 +50,15 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 		viewHolder.nameTextView.setText(product.getName());
 		viewHolder.modelTextView.setText(product.getModel());
 		viewHolder.quantityTextView.setText(product.getQuantity());
-		viewHolder.imageView.setImageResource(R.drawable.ic_launcher);
+		String url = product.getImgThumbUrl();
+		Picasso.with(getContext()).load(url)
+				.placeholder(R.drawable.ic_launcher).into(viewHolder.imageView);
 		return convertView;
 
 	}
 
 	public static class ViewHolder {
-		public TextView nameTextView, modelTextView,quantityTextView;
+		public TextView nameTextView, modelTextView, quantityTextView;
 		ImageView imageView;
 	}
 }

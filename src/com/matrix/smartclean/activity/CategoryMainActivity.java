@@ -1,4 +1,4 @@
-package com.matrix.smartclean;
+package com.matrix.smartclean.activity;
 
 import java.util.ArrayList;
 
@@ -8,18 +8,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
-
+import com.matrix.smartclean.R;
+import com.matrix.smartclean.adapter.CategoryAdapter;
+import com.matrix.smartclean.model.Category;
+import com.matrix.smartclean.utils.SmartCleanRestClient;
 
 public class CategoryMainActivity extends Activity implements
 		OnItemClickListener {
@@ -32,32 +33,18 @@ public class CategoryMainActivity extends Activity implements
 		setContentView(R.layout.activity_main);
 		listView = (ListView) findViewById(R.id.itemListView);
 		listView.setOnItemClickListener(this);
+		listView.setEmptyView(findViewById(R.id.image));
 		getCategoriesFromServer();
-		int loader=R.drawable.loader;
-		 ImageView image = (ImageView) findViewById(R.id.image);
-		String image_url = "";
-		ImageLoader imgLoader = new ImageLoader(getApplicationContext());
-		 imgLoader.DisplayImage(image_url, loader, image);
-    }
-	
+	}
 
 	private void getCategoriesFromServer() {
-		final ProgressDialog dialog = new ProgressDialog(this);
-				JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
-			/*@Override
-			public void onStart() {
-				super.onStart();
-				dialog.setMessage("Opening Categories...");
-				dialog.setCancelable(false);
-				dialog.show();
-			}*/
-
+		JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers,
 					JSONArray response) {
 				super.onSuccess(statusCode, headers, response);
 				getArraylist(response);
-				
+
 			}
 
 			@Override
@@ -67,20 +54,7 @@ public class CategoryMainActivity extends Activity implements
 				Toast.makeText(getApplicationContext(), throwable.getMessage(),
 						Toast.LENGTH_SHORT).show();
 			}
-
-			@Override
-			public void onFinish() {
-			super.onFinish();
-			if(dialog!=null)
-			{
-			   try{	
-			   if(dialog.isShowing());
-			dialog.dismiss();
-			   }catch (Exception e){}
-			}
-			}
-			};
-
+		};
 
 		SmartCleanRestClient.get("categories.json", handler);
 	}
@@ -105,7 +79,7 @@ public class CategoryMainActivity extends Activity implements
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 			long position) {
 		Intent intent = new Intent(getApplicationContext(),
-				ProductMainActivity.class);
+				ProductsActivity.class);
 		Category c = categories.get((int) position);
 		intent.putExtra("id", c.getId());
 		startActivity(intent);

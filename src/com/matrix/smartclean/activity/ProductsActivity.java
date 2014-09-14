@@ -1,4 +1,4 @@
-package com.matrix.smartclean;
+package com.matrix.smartclean.activity;
 
 import java.util.ArrayList;
 
@@ -15,18 +15,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.matrix.smartclean.R;
+import com.matrix.smartclean.adapter.ProductAdapter;
+import com.matrix.smartclean.model.Product;
+import com.matrix.smartclean.utils.SmartCleanRestClient;
 
-public class ProductMainActivity extends Activity implements
-		OnItemClickListener {
+public class ProductsActivity extends Activity implements OnItemClickListener {
 	private ArrayList<Product> products;
 	private ListView listView;
 	public long categoryId;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class ProductMainActivity extends Activity implements
 		listView = (ListView) findViewById(R.id.ProductListView);
 		listView.setOnItemClickListener(this);
 		getDetailssFromServer();
-		
+
 	}
 
 	private void getDetailssFromServer() {
@@ -49,7 +50,7 @@ public class ProductMainActivity extends Activity implements
 				dialog.setMessage("opening Product list...");
 				dialog.setCancelable(false);
 				dialog.show();
-				
+
 			}
 
 			@Override
@@ -72,12 +73,12 @@ public class ProductMainActivity extends Activity implements
 			public void onFinish() {
 				super.onFinish();
 				dialog.dismiss();
-				Log.e("ProductDetailsMainActivity","hell mannnn4");
+				Log.e("ProductDetailsMainActivity", "hell mannnn4");
 			}
 		};
 
-		SmartCleanRestClient
-				.get("categories/" + categoryId + "/products.json", handler);
+		SmartCleanRestClient.get("categories/" + categoryId + "/products.json",
+				handler);
 	}
 
 	public void getArraylist(JSONArray jArray) {
@@ -94,13 +95,17 @@ public class ProductMainActivity extends Activity implements
 		ProductAdapter adapter = new ProductAdapter(getApplicationContext(),
 				products);
 		listView.setAdapter(adapter);
+
+		if (products.size() == 0)
+			Toast.makeText(getApplicationContext(), "No products available",
+					Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 			long position) {
 		Intent intent = new Intent(getApplicationContext(),
-				ProductDetailsMainActivity.class);
+				ProductDetailsActivity.class);
 
 		Product p = products.get((int) position);
 		intent.putExtra("idp", p.getId());

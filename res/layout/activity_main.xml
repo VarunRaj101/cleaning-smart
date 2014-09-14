@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -19,7 +19,8 @@
     <ListView
         android:id="@+id/itemListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvctegoryHeading"
         android:background="@drawable/custumshapelistview" >
     </ListView>
 
@@ -27,8 +28,7 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="#45eaf4"
-        android:padding="8px" />
+        android:src="@drawable/loader" />
 
-</LinearLayout>
+</RelativeLayout>
